@@ -8,6 +8,9 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
+# Check if vite is installed successfully
+RUN npm list vite
+
 # Copy source code
 COPY . .
 
