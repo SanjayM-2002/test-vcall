@@ -26,8 +26,8 @@ export const Room = ({
     useState<MediaStreamTrack | null>(null);
   const [remoteMediaStream, setRemoteMediaStream] =
     useState<MediaStream | null>(null);
-  const remoteVideoRef = useRef<HTMLVideoElement>();
-  const localVideoRef = useRef<HTMLVideoElement>();
+  const remoteVideoRef = useRef<HTMLVideoElement | null>(null);
+  const localVideoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     const socket = io(URL);
@@ -87,7 +87,7 @@ export const Room = ({
       setRemoteMediaStream(stream);
       // trickle ice
       setReceivingPc(pc);
-      window.pcr = pc;
+      (window as any).pcr = pc;
       pc.ontrack = (e) => {
         alert('ontrack');
         // console.error("inside ontrack");
