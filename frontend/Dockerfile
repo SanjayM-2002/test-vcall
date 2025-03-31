@@ -26,8 +26,8 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY package.json package-lock.json ./
 
-# Install only production dependencies
-RUN npm install --omit=dev
+# Install
+RUN npm install
 
 # Expose frontend port
 EXPOSE 5173
