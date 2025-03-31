@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  backend:
+    image: vcall-backend # Backend image name
+    build:
+      context: ./backend
+    ports:
+      - '3000:3000' # Map backend port
+    deploy:
+      replicas: 3 # 3 replicas for backend
+      restart_policy:
+        condition: on-failure
+    networks:
+      - vcall-network
+
+  frontend:
+    image: vcall-frontend # Frontend image name
+    build:
+      context: ./frontend
+    ports:
+      - '5173:5173' # Map frontend port
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - vcall-network
+
+networks:
+  vcall-network:
+    driver: overlay # Swarm-compatible network

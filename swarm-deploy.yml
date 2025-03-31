@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  backend:
+    image: sanjaym22022002/vcall-backend:latest # Docker Hub image
+    ports:
+      - '3000:3000'
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    networks:
+      - vcall-network
+
+  frontend:
+    image: sanjaym22022002/vcall-frontend:latest # Docker Hub image
+    ports:
+      - '5173:5173'
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - vcall-network
+
+networks:
+  vcall-network:
+    driver: overlay
